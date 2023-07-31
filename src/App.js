@@ -1,24 +1,50 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Exercise from './Exercise';
+import Second from './Second';
+import ReducerPractice from './ReducerPractice';
+
+import { useState } from 'react';
+import { createContext } from 'react';
+const UserContext = createContext();
 
 function App() {
+  const [user, setUser] = useState("Jesse Hall");
+  const [arr,setArr]=useState([1,2,3,4]);
+  const updateArr=(number)=>
+  {
+    setArr([
+      ...arr,
+      number
+    ]
+    )
+  }
+
+  const [emoji,setE]=useState({
+    type:'笑哭',
+    number:1
+  });
+  const updateET=(input)=>{
+    setE((prev)=>{
+      return{
+        ...emoji,
+        type:input
+      }
+      
+    }
+    )
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={user}>
+      {user}
+      <Second my_emoji={emoji} my_updateET={updateET}/>
+      {/* <Exercise my_arr={arr} my_update={updateArr}/>
+    <ReducerPractice/> */}
+   
+
+    </UserContext.Provider>
+    
   );
 }
 
